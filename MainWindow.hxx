@@ -17,6 +17,8 @@ public:
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
 
+  void startTimer();
+  void stopTimer();
 private:
   void updateCountdown();
 
