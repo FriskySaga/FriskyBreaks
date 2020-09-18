@@ -8,7 +8,7 @@
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent),
     ui(new Ui::MainWindow),
-    time(new QTime(00, 01, 00)),
+    time(new QTime(00, 50, 00)),
     timer(new QTimer),
     isRunning(false),
     phase(PhaseEnum::WORK_1),
@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
   // Application starts without timer running
   setPausedIcon();
 
-  // Set initial countdown from 50 minutes
+  // Set initial countdown
   ui->timerButton->setText(time->toString("m:ss"));
   connect(ui->timerButton, SIGNAL(released()), this, SLOT(toggleTimer()));
   connect(timer, SIGNAL(timeout()), this, SLOT(updateCountdown()));
