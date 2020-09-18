@@ -3,9 +3,10 @@
 
 enum PhaseEnum
 {
-  SHORT_BREAK = 0,
-  LONG_BREAK = 1,
-  WORKING = 2
+  WORK_1 = 0,
+  SHORT_BREAK = 1,
+  WORK_2 = 2,
+  LONG_BREAK = 3,
 };
 
 #endif // PHASEENUM_HXX

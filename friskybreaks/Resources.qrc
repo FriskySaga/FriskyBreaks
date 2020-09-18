@@ -3,7 +3,8 @@
   <file>Style.qss</file>
   <file>icons/Paused.ico</file>
   <file>icons/ShortBreak.ico</file>
-  <file>icons/Working.ico</file>
+  <file>icons/LongBreak.ico</file>
+  <file>icons/Work.ico</file>
 </qresource>
 </RCC>
 

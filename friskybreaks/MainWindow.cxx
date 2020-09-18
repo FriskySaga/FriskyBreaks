@@ -11,11 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
     time(new QTime(00, 01, 00)),
     timer(new QTimer),
     isRunning(false),
-    phase(PhaseEnum::WORKING),
+    phase(PhaseEnum::WORK_1),
     pausedIcon(new QIcon(":/icons/Paused.ico")),
     shortBreakIcon(new QIcon(":/icons/ShortBreak.ico")),
-//    longBreakIcon(new QIcon(":/icons/LongBreak.ico")), TODO
-    workingIcon(new QIcon(":/icons/Working.ico"))
+    longBreakIcon(new QIcon(":/icons/LongBreak.ico")),
+    workIcon(new QIcon(":/icons/Work.ico"))
 {
   ui->setupUi(this);
 
@@ -36,7 +36,7 @@ MainWindow::~MainWindow()
   delete pausedIcon;
   delete shortBreakIcon;
   delete longBreakIcon;
-  delete workingIcon;
+  delete workIcon;
 
   delete time;
   delete timer;
@@ -44,29 +44,67 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-void MainWindow::resetPhaseIcon()
+void MainWindow::setNextPhase()
 {
   switch (phase)
   {
+  case WORK_1:
+    phase = PhaseEnum::SHORT_BREAK;
+    break;
   case SHORT_BREAK:
-    setWindowIcon(QIcon(":/icons/ShortBreak.ico"));
+    phase = PhaseEnum::WORK_2;
+    break;
+  case WORK_2:
+    phase = PhaseEnum::LONG_BREAK;
     break;
   case LONG_BREAK:
-    break; // TODO
-  case WORKING:
-    setWindowIcon(QIcon(":/icons/Working.ico"));
+    phase = PhaseEnum::WORK_1;
     break;
   }
 }
 
 void MainWindow::setPausedIcon()
 {
-  setWindowIcon(QIcon(":/icons/Paused.ico"));
+  setWindowIcon(*pausedIcon);
+}
+
+void MainWindow::setPhaseIcon()
+{
+  switch (phase)
+  {
+  case WORK_1:
+  case WORK_2:
+    setWindowIcon(*workIcon);
+    break;
+  case SHORT_BREAK:
+    setWindowIcon(*shortBreakIcon);
+    break;
+  case LONG_BREAK:
+    setWindowIcon(*longBreakIcon);
+    break;
+  }
+}
+
+void MainWindow::setTimer()
+{
+  switch (phase)
+  {
+  case WORK_1:
+  case WORK_2:
+    time->setHMS(0, 50, 0);
+    break;
+  case SHORT_BREAK:
+    time->setHMS(0, 5, 0);
+    break;
+  case LONG_BREAK:
+    time->setHMS(0, 20, 0);
+    break;
+  }
 }
 
 void MainWindow::startTimer()
 {
-  resetPhaseIcon();
+  setPhaseIcon();
   timer->start(1000);
 }
 
@@ -93,9 +131,14 @@ void MainWindow::updateCountdown()
 {
   *time = time->addSecs(-1);
   ui->timerButton->setText(time->toString("m:ss"));
+
+  // End of timer
   if (time->minute() == 0 && time->second() == 0 && time->hour() == 0)
   {
     stopTimer();
+    setNextPhase();
+    setTimer();
+    startTimer();
   }
 }
 

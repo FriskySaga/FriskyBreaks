@@ -22,8 +22,10 @@ public:
   ~MainWindow();
 
 private:
-  void resetPhaseIcon();
+  void setNextPhase();
   void setPausedIcon();
+  void setPhaseIcon();
+  void setTimer();
   void startTimer();
   void stopTimer();
 
@@ -39,10 +41,11 @@ private:
 
   bool isRunning;
   PhaseEnum phase;
+
   QIcon* pausedIcon;
   QIcon* shortBreakIcon;
   QIcon* longBreakIcon;
-  QIcon* workingIcon;
+  QIcon* workIcon;
 };
 #endif // MAINWINDOW_HXX
 
