@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_HXX
 #define MAINWINDOW_HXX
 
+#include "PhaseEnum.hxx"
+
 #include <QMainWindow>
 
 class QIcon;
@@ -20,6 +22,7 @@ public:
   ~MainWindow();
 
 private:
+  void setPhase(PhaseEnum phase);
   void startTimer();
   void stopTimer();
   void updateCountdown();
@@ -28,6 +31,7 @@ private:
   QTime* time;
   QTimer* timer;
 
+  PhaseEnum phase;
   QIcon* pausedIcon;
   QIcon* shortBreakIcon;
   QIcon* longBreakIcon;
