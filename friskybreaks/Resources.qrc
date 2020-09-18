@@ -1,0 +1,9 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+  <file>Style.qss</file>
+  <file>icons/Paused.ico</file>
+  <file>icons/ShortBreak.ico</file>
+  <file>icons/Working.ico</file>
+</qresource>
+</RCC>
+

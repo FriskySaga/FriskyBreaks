@@ -2,8 +2,10 @@
 #define MAINWINDOW_HXX
 
 #include <QMainWindow>
-#include <QTime>
-#include <QTimer>
+
+class QIcon;
+class QTime;
+class QTimer;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,13 +19,19 @@ public:
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
 
+private:
   void startTimer();
   void stopTimer();
-private:
   void updateCountdown();
 
   Ui::MainWindow* ui;
   QTime* time;
   QTimer* timer;
+
+  QIcon* pausedIcon;
+  QIcon* shortBreakIcon;
+  QIcon* longBreakIcon;
+  QIcon* workingIcon;
 };
 #endif // MAINWINDOW_HXX
+

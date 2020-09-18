@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
   QApplication app(argc, argv);
 
   // Use one stylesheet for everything
-  QFile styleFile("../Style.qss");
+  QFile styleFile(":/Style.qss");
   styleFile.open(QFile::ReadOnly);
   QString styleSheet(styleFile.readAll());
   app.setStyleSheet(styleSheet);

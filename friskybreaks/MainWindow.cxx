@@ -1,13 +1,24 @@
 #include "MainWindow.hxx"
 #include "ui_MainWindow.h"
 
+#include <QIcon>
+#include <QTime>
+#include <QTimer>
+
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent),
     ui(new Ui::MainWindow),
     time(new QTime(00, 50, 00)),
-    timer(new QTimer)
+    timer(new QTimer),
+    pausedIcon(new QIcon(":/icons/Paused.ico")),
+    shortBreakIcon(new QIcon(":/icons/ShortBreak.ico")),
+//    longBreakIcon(new QIcon(":/icons/LongBreak.ico")),
+    workingIcon(new QIcon(":/icons/Working.ico"))
 {
   ui->setupUi(this);
+
+  // Application starts without timer running
+  setWindowIcon(QIcon(":/icons/Paused.ico"));
 
   // Start countdown from 50 minutes
   ui->timerLabel->setText(time->toString("m:ss"));
@@ -17,8 +28,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+  delete pausedIcon;
+  delete shortBreakIcon;
+  delete longBreakIcon;
+  delete workingIcon;
+
   delete time;
   delete timer;
+
   delete ui;
 }
 

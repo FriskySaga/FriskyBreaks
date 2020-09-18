@@ -13,7 +13,8 @@ SOURCES += \
     MainWindow.cxx
 
 HEADERS += \
-    MainWindow.hxx
+    MainWindow.hxx \
+    PhaseEnum.hxx
 
 FORMS += \
     MainWindow.ui
@@ -23,5 +24,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    Style.qss
+RESOURCES += \
+  Resources.qrc
