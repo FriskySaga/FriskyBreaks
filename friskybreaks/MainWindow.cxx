@@ -8,7 +8,7 @@
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent),
     ui(new Ui::MainWindow),
-    time(new QTime(00, 50, 00)),
+    time(new QTime(00, 01, 00)),
     timer(new QTimer),
     isRunning(false),
     pausedIcon(new QIcon(":/icons/Paused.ico")),
@@ -64,6 +64,7 @@ void MainWindow::setPhase(PhaseEnum phase)
 
 void MainWindow::startTimer()
 {
+  setPhase(PhaseEnum::WORKING);
   timer->start(1000);
 }
 

@@ -32,6 +32,7 @@ private slots:
 
 private:
   Ui::MainWindow* ui;
+
   QTime* time;
   QTimer* timer;
 
