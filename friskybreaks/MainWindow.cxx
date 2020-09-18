@@ -8,9 +8,10 @@
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent),
     ui(new Ui::MainWindow),
-    time(new QTime(00, 50, 00)),
+    time(new QTime(00, 01, 00)),
     timer(new QTimer),
     isRunning(false),
+    phase(PhaseEnum::WORKING),
     pausedIcon(new QIcon(":/icons/Paused.ico")),
     shortBreakIcon(new QIcon(":/icons/ShortBreak.ico")),
 //    longBreakIcon(new QIcon(":/icons/LongBreak.ico")), TODO
@@ -22,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
   setFixedSize(size());
 
   // Application starts without timer running
-  setPhase(PhaseEnum::PAUSED);
+  setPausedIcon();
 
   // Set initial countdown from 50 minutes
   ui->timerButton->setText(time->toString("m:ss"));
@@ -43,14 +44,10 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-void MainWindow::setPhase(PhaseEnum phase)
+void MainWindow::resetPhaseIcon()
 {
-  this->phase = phase;
   switch (phase)
   {
-  case PAUSED:
-    setWindowIcon(QIcon(":/icons/Paused.ico"));
-    break;
   case SHORT_BREAK:
     setWindowIcon(QIcon(":/icons/ShortBreak.ico"));
     break;
@@ -62,15 +59,20 @@ void MainWindow::setPhase(PhaseEnum phase)
   }
 }
 
+void MainWindow::setPausedIcon()
+{
+  setWindowIcon(QIcon(":/icons/Paused.ico"));
+}
+
 void MainWindow::startTimer()
 {
-  setPhase(PhaseEnum::WORKING);
+  resetPhaseIcon();
   timer->start(1000);
 }
 
 void MainWindow::stopTimer()
 {
-  setPhase(PhaseEnum::PAUSED);
+  setPausedIcon();
   timer->stop();
 }
 

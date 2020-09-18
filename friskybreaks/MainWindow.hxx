@@ -22,7 +22,8 @@ public:
   ~MainWindow();
 
 private:
-  void setPhase(PhaseEnum phase);
+  void resetPhaseIcon();
+  void setPausedIcon();
   void startTimer();
   void stopTimer();
 
