@@ -4,11 +4,10 @@
 #include <QFile>
 #include <QString>
 
-#include <iostream>
-
 int main(int argc, char *argv[])
-{
+{ 
   QApplication app(argc, argv);
+  app.setApplicationName("FriskyBreaks");
 
   // Use one stylesheet for everything
   QFile styleFile(":/Style.qss");

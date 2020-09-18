@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui(new Ui::MainWindow),
     time(new QTime(00, 50, 00)),
     timer(new QTimer),
+    isRunning(false),
     pausedIcon(new QIcon(":/icons/Paused.ico")),
     shortBreakIcon(new QIcon(":/icons/ShortBreak.ico")),
 //    longBreakIcon(new QIcon(":/icons/LongBreak.ico")), TODO
@@ -17,13 +18,16 @@ MainWindow::MainWindow(QWidget *parent)
 {
   ui->setupUi(this);
 
+  setWindowTitle("FriskyBreaks");
+  setFixedSize(size());
+
   // Application starts without timer running
   setPhase(PhaseEnum::PAUSED);
 
-  // Start countdown from 50 minutes
-  ui->timerLabel->setText(time->toString("m:ss"));
-  connect(timer, &QTimer::timeout, this, &MainWindow::updateCountdown);
-//  startTimer(); TODO
+  // Set initial countdown from 50 minutes
+  ui->timerButton->setText(time->toString("m:ss"));
+  connect(ui->timerButton, SIGNAL(released()), this, SLOT(toggleTimer()));
+  connect(timer, SIGNAL(timeout()), this, SLOT(updateCountdown()));
 }
 
 MainWindow::~MainWindow()
@@ -69,10 +73,23 @@ void MainWindow::stopTimer()
   timer->stop();
 }
 
+void MainWindow::toggleTimer()
+{
+  isRunning = !isRunning;
+  if (isRunning)
+  {
+    startTimer();
+  }
+  else
+  {
+    stopTimer();
+  }
+}
+
 void MainWindow::updateCountdown()
 {
   *time = time->addSecs(-1);
-  ui->timerLabel->setText(time->toString("m:ss"));
+  ui->timerButton->setText(time->toString("m:ss"));
   if (time->minute() == 0 && time->second() == 0 && time->hour() == 0)
   {
     stopTimer();

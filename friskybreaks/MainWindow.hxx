@@ -25,12 +25,17 @@ private:
   void setPhase(PhaseEnum phase);
   void startTimer();
   void stopTimer();
+
+private slots:
+  void toggleTimer();
   void updateCountdown();
 
+private:
   Ui::MainWindow* ui;
   QTime* time;
   QTimer* timer;
 
+  bool isRunning;
   PhaseEnum phase;
   QIcon* pausedIcon;
   QIcon* shortBreakIcon;
