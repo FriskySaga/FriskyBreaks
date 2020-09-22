@@ -8,7 +8,7 @@
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent),
     ui(new Ui::MainWindow),
-    time(new QTime(00, 50, 00)),
+    time(new QTime(00, 40, 00)),
     timer(new QTimer),
     isRunning(false),
     phase(PhaseEnum::WORK_1),
@@ -91,13 +91,13 @@ void MainWindow::setTimer()
   {
   case WORK_1:
   case WORK_2:
-    time->setHMS(0, 50, 0);
+    time->setHMS(0, 40, 0);
     break;
   case SHORT_BREAK:
-    time->setHMS(0, 5, 0);
+    time->setHMS(0, 10, 0);
     break;
   case LONG_BREAK:
-    time->setHMS(0, 20, 0);
+    time->setHMS(0, 35, 0);
     break;
   }
 }
